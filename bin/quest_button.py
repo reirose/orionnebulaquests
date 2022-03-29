@@ -29,7 +29,7 @@ def join_and_ready(bot, update):
 
     try:
         player_status = quest.players.get(q.from_user.id)[0]
-    except AttributeError:
+    except TypeError or AttributeError:
         player_status = None
 
     if q.from_user.first_name in qmes.text and q.data == 'join' and player_status != 'moving':

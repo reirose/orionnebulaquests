@@ -21,6 +21,7 @@ def main():
     print("on air")
     updater.idle()
     conn.close()
+    print("exiting...")
 
 
 while __name__ == '__main__':

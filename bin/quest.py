@@ -22,8 +22,8 @@ class Quest:
         qid = uuid4().hex[:4]
 
         text = f"<code>{qid}</code>\n" \
-               f"{boss_list[1]}\n\n" \
-               f"Состав:\n"
+               f"<b>🌟Элитный: {boss_list[1]}</b>\n\n" \
+               f"<b>Состав:</b>\n"
 
         chat.send_message(text=text,
                           reply_markup=InlineKeyboardMarkup(main_buttons_markup),
@@ -45,7 +45,11 @@ class Quest:
         mes = update.message
         bot_mes = mes.reply_to_message
 
-        current.pop(bot_mes.text[:4])
+        try:
+            current.pop(bot_mes.text[:4])
+        except KeyError or AttributeError:
+            return
+
         try:
             bot.delete_message(message_id=mes.message_id,
                                chat_id=mes.chat_id)
