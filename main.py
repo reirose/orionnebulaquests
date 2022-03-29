@@ -1,4 +1,4 @@
-from telegram.ext import CommandHandler, MessageHandler, CallbackQueryHandler
+from telegram.ext import CommandHandler, CallbackQueryHandler
 from config.bot import dp, updater
 from config.sql import conn
 
