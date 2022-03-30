@@ -2,7 +2,7 @@ from telegram.ext import Updater
 
 import logging
 
-debug = 0
+debug = 1
 TOKEN = "5240399182:AAFXRenIB9Sv9EisZBXlGIJEkbV9VxgajJc"
 DEBUG_TOKEN = "1050588160:AAHyzSPWCGn1Lw7OCRf9DeVCNuBp4hj5NQM"
 
