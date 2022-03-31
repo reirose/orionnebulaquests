@@ -1,4 +1,4 @@
-from bin.var import main_buttons_markup, current, status, boss_list, boss_buttons_markup
+from bin.var import main_buttons, current, emojis, boss_list, boss_buttons
 
 from telegram import InlineKeyboardMarkup
 from telegram.error import BadRequest
@@ -11,20 +11,19 @@ def edit_text(quest, callback_query):
            f"<b>Состав:</b>\n"
 
     for player in quest.players:
-        text += f"{status[quest.players[player][0]]} {quest.players[player][1].first_name}\n"
+        text += f"{emojis['status'][quest.players[player][0]]} {quest.players[player][1].first_name}\n"
 
     try:
         q.edit_message_text(text=text,
-                            reply_markup=InlineKeyboardMarkup(main_buttons_markup),
+                            reply_markup=InlineKeyboardMarkup(main_buttons),
                             parse_mode="HTML")
     except BadRequest:
         pass
 
 
-def join_and_ready(bot, update):
+def join_and_ready(update):
     q = update.callback_query
     qmes = q.message
-
     quest = current.get(qmes.text[:4])
 
     try:
@@ -45,10 +44,9 @@ def join_and_ready(bot, update):
     q.answer("Скоро начнём, будьте начеку!")
 
 
-def remove_player(bot, update):
+def remove_player(update):
     q = update.callback_query
     qmes = q.message
-
     quest = current.get(qmes.text[:4])
 
     if q.from_user.first_name not in qmes.text:
@@ -61,10 +59,9 @@ def remove_player(bot, update):
     q.answer("До скорых встреч!")
 
 
-def ping(bot, update):
+def ping(update):
     q = update.callback_query
     qmes = q.message
-
     quest = current.get(qmes.text[:4])
 
     if q.from_user.first_name not in qmes.text:
@@ -90,10 +87,9 @@ def ping(bot, update):
                         parse_mode="HTML")
 
 
-def change_boss(bot, update):
+def change_boss(update):
     q = update.callback_query
     qmes = q.message
-
     quest = current.get(qmes.text[:4])
 
     if q.from_user.id not in quest.players:
@@ -101,37 +97,17 @@ def change_boss(bot, update):
         return
 
     q.edit_message_text(text=f"<code>{quest.qid}</code>\nВыберите босса:",
-                        reply_markup=InlineKeyboardMarkup(boss_buttons_markup),
+                        reply_markup=InlineKeyboardMarkup(boss_buttons),
                         parse_mode="HTML")
     q.answer('')
 
 
-def choose_boss(bot, update):
+def choose_boss(update):
     q = update.callback_query
     qmes = q.message
-
     quest = current.get(qmes.text[:4])
 
     quest.qn = int(q.data[-1])
     quest.update()
 
     edit_text(quest, q)
-
-
-def button(bot, update):
-    q = update.callback_query
-
-    if q.data in ('join', 'moving'):
-        join_and_ready(bot, update)
-
-    if q.data == 'quit':
-        remove_player(bot, update)
-
-    if q.data == 'ping':
-        ping(bot, update)
-
-    if q.data == 'boss':
-        change_boss(bot, update)
-
-    if 'boss_' in q.data:
-        choose_boss(bot, update)
