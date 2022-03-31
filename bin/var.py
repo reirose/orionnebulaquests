@@ -6,8 +6,8 @@ emojis = {
     'status': {"ready": "✅",
                "not_ready": "❌",
                'moving': "🏃"},
-    'settings': {'enabled': '🔔',
-                 'disabled': '🔕'}
+    'settings': {'enabled': '✅',
+                 'disabled': '❌'}
 }
 
 boss_list = {1: 'Горгона 🎖5',
