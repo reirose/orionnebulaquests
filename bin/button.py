@@ -1,5 +1,5 @@
 from bin.quest_button import join_and_ready, remove_player, ping, change_boss, choose_boss
-from bin.chat_settings_button import change_pin
+from bin.chat_settings_button import change_pin, close_settings
 
 
 def button(bot, update):
@@ -28,4 +28,8 @@ def button(bot, update):
 
     if q.data == 'pin_change':
         change_pin(update)
+        return
+
+    if q.data == 'settings_close':
+        close_settings(update)
         return

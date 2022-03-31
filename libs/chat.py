@@ -62,7 +62,8 @@ class Chat:
 
         text = f"Чат <code>{chat.chat_id}</code> — настройки"
         settings_buttons = [[button(f"📌 Пин — {emojis['settings'][chat.settings['pin']]}",
-                                    callback_data='pin_change')]]
+                                    callback_data='pin_change')],
+                            [button("Закрыть", callback_data='settings_close')]]
 
         bot.send_message(chat_id=mes.chat_id,
                          text=text,
