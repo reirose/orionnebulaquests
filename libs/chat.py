@@ -1,5 +1,6 @@
 from config.sql import cur, query
-from bin.var import emojis, chats, button
+from bin.var import chats
+from bin.buttons_geenrators import generate_buttons
 
 from json import dumps
 from telegram import InlineKeyboardMarkup
@@ -56,14 +57,16 @@ class Chat:
         mes = update.message
         chat = Chat.get(mes.chat_id)
 
+        if mes.from_user.id not in [user.user.id for user in bot.get_chat_administrators(mes.chat_id)]:
+            mes.reply_text('Настройки доступны только для администраторов чата!')
+            return
+
         if chat == 404:
             print(chat)
             return
 
         text = f"Чат <code>{chat.chat_id}</code> — настройки"
-        settings_buttons = [[button(f"📌 Пин — {emojis['settings'][chat.settings['pin']]}",
-                                    callback_data='pin_change')],
-                            [button("Закрыть", callback_data='settings_close')]]
+        settings_buttons = generate_buttons(chat)
 
         bot.send_message(chat_id=mes.chat_id,
                          text=text,

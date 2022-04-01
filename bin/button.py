@@ -26,10 +26,11 @@ def button(bot, update):
         choose_boss(update)
         return
 
-    if q.data == 'pin_change':
-        change_pin(update)
-        return
+    if q.from_user.id in [user.user.id for user in bot.get_chat_administrators(q.message.chat_id)]:
+        if q.data == 'pin_change':
+            change_pin(update)
+            return
 
-    if q.data == 'settings_close':
-        close_settings(update)
-        return
+        if q.data == 'settings_close':
+            close_settings(update)
+            return
