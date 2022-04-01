@@ -1,4 +1,5 @@
-from bin.var import current, main_buttons, boss_list
+from bin.var import current, boss_list
+from bin.buttons_geenrators import main_buttons
 from libs.chat import Chat
 from telegram.error import BadRequest
 from telegram import InlineKeyboardMarkup
@@ -73,6 +74,11 @@ class Quest:
         """
         mes = update.message
         bot_mes = mes.reply_to_message
+
+        try:
+            mes.reply_to_message.edit_reply_markup(reply_markup=None)
+        except AttributeError or BadRequest:
+            return
 
         try:
             current.pop(bot_mes.text[:4])

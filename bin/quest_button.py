@@ -1,4 +1,5 @@
-from bin.var import main_buttons, current, emojis, boss_list, boss_buttons
+from bin.var import current, emojis, boss_list
+from bin.buttons_geenrators import main_buttons, boss_buttons
 
 from telegram import InlineKeyboardMarkup
 from telegram.error import BadRequest
