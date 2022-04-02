@@ -1,5 +1,9 @@
 from telegram import InlineKeyboardButton
 
+from datetime import datetime
+
+start_time = datetime.now()
+
 button = InlineKeyboardButton  # Shortcut
 current = dict()  # Список активных квестов
 emojis = {
@@ -19,5 +23,7 @@ boss_list = {1: 'Горгона 🎖5',
              7: "Дух Синдара 🎖40",
              8: "Немезида 🎖50",
              9: "Голем"}
+
+superuser_id = [352318827]
 
 chats = {}

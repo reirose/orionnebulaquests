@@ -1,6 +1,6 @@
 from config.sql import cur, query
 from bin.var import chats
-from bin.buttons_geenrators import generate_buttons
+from bin.buttons_generators import generate_buttons
 
 from json import dumps
 from telegram import InlineKeyboardMarkup
