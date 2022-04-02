@@ -1,5 +1,6 @@
 from libs.chat import Chat
-from bin.buttons_geenrators import generate_buttons
+from bin.buttons_generators import generate_buttons
+
 
 from telegram import InlineKeyboardMarkup
 

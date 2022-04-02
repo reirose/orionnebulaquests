@@ -4,7 +4,7 @@ import logging
 
 debug = 0  # TODO: сделать командой бота
 TOKEN = "5240399182:AAFXRenIB9Sv9EisZBXlGIJEkbV9VxgajJc"
-DEBUG_TOKEN = "1050588160:AAHyzSPWCGn1Lw7OCRf9DeVCNuBp4hj5NQM"
+DEBUG_TOKEN = "1050588160:AAHLgjqZKBf2lrm20Z2mz69HgyEiel1U45E"
 
 console = logging.StreamHandler()
 console.setLevel(logging.INFO)

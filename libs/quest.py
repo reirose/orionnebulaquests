@@ -1,5 +1,5 @@
 from bin.var import current, boss_list
-from bin.buttons_geenrators import main_buttons
+from bin.buttons_generators import main_buttons
 from libs.chat import Chat
 from telegram.error import BadRequest
 from telegram import InlineKeyboardMarkup
@@ -77,7 +77,9 @@ class Quest:
 
         try:
             mes.reply_to_message.edit_reply_markup(reply_markup=None)
-        except AttributeError or BadRequest:
+        except AttributeError:
+            return
+        except BadRequest:
             return
 
         try:
@@ -89,4 +91,4 @@ class Quest:
             bot.delete_message(message_id=mes.message_id,
                                chat_id=mes.chat_id)
         except BadRequest:
-            pass
+            return
