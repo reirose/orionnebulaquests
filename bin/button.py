@@ -1,10 +1,13 @@
 from bin.quest_button import join_and_ready, remove_player, ping, change_boss, choose_boss
 from bin.chat_settings_button import change_pin, close_settings
 
+from telegram import Update
+from telegram.ext import CallbackContext
 
-def button(bot, update):
+
+def button(update: Update, context: CallbackContext):
     q = update.callback_query
-    bot.get_me()
+    bot = context.bot
 
     if q.data in ('join', 'moving'):
         join_and_ready(update)

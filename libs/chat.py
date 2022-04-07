@@ -3,7 +3,8 @@ from bin.var import chats
 from bin.buttons_generators import generate_buttons
 
 from json import dumps
-from telegram import InlineKeyboardMarkup
+from telegram import InlineKeyboardMarkup, Update
+from telegram.ext import CallbackContext
 
 
 class Chat:
@@ -42,8 +43,8 @@ class Chat:
         return
 
     @staticmethod
-    def reg(bot, update):
-        bot.get_me()
+    def reg(update: Update, context: CallbackContext):
+        context.bot.get_me()
         if update.message.chat_id in chats:
             return
 
@@ -53,8 +54,9 @@ class Chat:
         return
 
     @staticmethod
-    def settings(bot, update):
+    def settings(update: Update, context: CallbackContext):
         mes = update.message
+        bot = context.bot
         chat = Chat.get(mes.chat_id)
 
         if mes.from_user.id not in [user.user.id for user in bot.get_chat_administrators(mes.chat_id)]:

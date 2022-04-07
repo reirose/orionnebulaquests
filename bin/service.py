@@ -1,11 +1,13 @@
 from bin.var import start_time
 
 from datetime import datetime
+from telegram import Update
+from telegram.ext import CallbackContext
 
 
-def uptime(bot, update):
+def uptime(update: Update, context: CallbackContext):
     mes = update.message
-    bot.get_me()
+    context.bot.get_me()
 
     upt = datetime.now() - start_time
 
