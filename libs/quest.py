@@ -2,7 +2,8 @@ from bin.var import current, boss_list
 from bin.buttons_generators import main_buttons
 from libs.chat import Chat
 from telegram.error import BadRequest
-from telegram import InlineKeyboardMarkup
+from telegram import InlineKeyboardMarkup, Update
+from telegram.ext import CallbackContext
 
 from uuid import uuid4
 
@@ -21,7 +22,7 @@ class Quest:
         self.qn = boss_index
         self.qid = q_id
 
-    def update(self):
+    def update(self) -> int:
         """
         Метод обновления квеста в списке
         """
@@ -29,12 +30,13 @@ class Quest:
         return 100
 
     @staticmethod
-    def create(bot, update):
+    def create(update: Update, context: CallbackContext) -> None:
         """
         Метод создания квеста. После создания добавляет его в список активных с пустым списком игроков.
-        :param bot: объект бота
+        :param context: объект бота
         :param update: объект обновления, полученного от телеграма
         """
+        bot = context.bot
         mes = update.message
         chat = mes.chat
         qid = uuid4().hex[:4]
@@ -50,15 +52,14 @@ class Quest:
 
         if pin == 'enabled':
             try:
-                bot.pinChatMessage(chat_id=mes.chat_id,
-                                   message_id=sent,
-                                   disable_notification=True)
+                bot.pin_chat_message(chat_id=chat.id,
+                                     message_id=sent,
+                                     disable_notification=True)
             except BadRequest:
                 pass
 
         try:
-            bot.delete_message(message_id=mes.message_id,
-                               chat_id=mes.chat_id)
+            mes.delete()
         except BadRequest:
             pass
 
@@ -66,29 +67,32 @@ class Quest:
         quest.update()
 
     @staticmethod
-    def close(bot, update):
+    def close(update: Update, context: CallbackContext) -> None:
         """
         Метод удаления взаимодействия с квестом. Удаляет квест из списка активных, что делает его недоступным.
-        :param bot: объект бота
+        :param context: объект бота
         :param update: объект обновления, полученного от телеграма
         """
         mes = update.message
-        bot_mes = mes.reply_to_message
+        quest_mes = mes.reply_to_message
+        bot = context.bot
 
         try:
             mes.reply_to_message.edit_reply_markup(reply_markup=None)
-        except AttributeError:
+        except (AttributeError, BadRequest):
             return
+
+        try:
+            current.pop(quest_mes.text[:4])
+        except (KeyError, AttributeError):
+            return
+
+        try:
+            mes.delete()
         except BadRequest:
             return
 
         try:
-            current.pop(bot_mes.text[:4])
-        except KeyError or AttributeError:
-            return
-
-        try:
-            bot.delete_message(message_id=mes.message_id,
-                               chat_id=mes.chat_id)
+            bot.unpin_chat_message(chat_id=mes.chat_id)
         except BadRequest:
             return

@@ -25,5 +25,6 @@ boss_list = {1: 'Горгона 🎖5',
              9: "Голем"}
 
 superuser_id = [352318827]
+api_players = {}
 
 chats = {}
