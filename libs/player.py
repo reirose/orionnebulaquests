@@ -1,4 +1,7 @@
 from config.api import api
+from bin.var import api_players
+
+from json import dumps as d
 
 
 class Player:
@@ -13,7 +16,13 @@ class Player:
     @staticmethod
     def get(player: int):
 
-        raw = api.get_players(player)[0]
+        raw = api.get_players(player)
+
+        if not raw:
+            return False
+        else:
+            raw = raw[0]
+
         resp = {"level": raw["level"],
                 "damage": raw["damage"],
                 "defence": raw["defence"],
@@ -21,7 +30,19 @@ class Player:
                 "currentEnergy": raw["currentEnergy"],
                 "className": raw["className"]}
 
-        return resp
+        return Player(resp)
 
+    @staticmethod
+    def update_mem(context):
+        context.bot.get_me()
+        id_list = list(api_players.keys())
 
-print(Player.get(116028074))
+        for tid in id_list:
+            api_players.update({tid: Player.get(tid)})
+
+    @staticmethod
+    def get_api_mem(update, context):
+        mes = update.message
+        context.bot.get_me()
+
+        mes.reply_text(d(api_players, indent=4))

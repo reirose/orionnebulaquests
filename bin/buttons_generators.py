@@ -2,9 +2,10 @@ from bin.var import button, emojis
 
 # Мэйн кнопки
 main_buttons = [[button("⚔️ Готов!", callback_data='join')],
-                [button("🏃 В пути!", callback_data='moving')],
-                [button('❌ Выйти', callback_data='quit'),
+                [button("🏃 В пути!", callback_data='moving'),
                  button('📣 Пингануть', callback_data='ping')],
+                [button('❌ Выйти', callback_data='quit'),
+                 button('⛔️Закрыть', callback_data='close')],
                 [button("🌟 Выбор босса", callback_data='boss')]]
 
 # Кнопки выбора босса

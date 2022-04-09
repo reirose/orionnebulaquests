@@ -1,4 +1,4 @@
-from bin.quest_button import join_and_ready, remove_player, ping, change_boss, choose_boss
+from bin.quest_button import join_and_ready, remove_player, ping, change_boss, choose_boss, close
 from bin.chat_settings_button import change_pin, close_settings
 
 from telegram import Update
@@ -37,3 +37,6 @@ def button(update: Update, context: CallbackContext):
         if q.data == 'settings_close':
             close_settings(update)
             return
+
+        if q.data == 'close':
+            close(update, context.bot)

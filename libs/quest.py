@@ -93,6 +93,6 @@ class Quest:
             return
 
         try:
-            bot.unpin_chat_message()
+            bot.unpin_chat_message(chat_id=mes.chat_id)
         except BadRequest:
             return
