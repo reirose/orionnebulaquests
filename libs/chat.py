@@ -36,6 +36,12 @@ class Chat:
         except TypeError:
             return 404
 
+    @staticmethod
+    def get_chat_ids():
+        query("""SELECT DISTINCT chat_id FROM chats where chat_id < 0""")
+
+        return (x[0] for x in cur.fetchall())
+
     def update(self):
         query("""UPDATE chats SET setiings = '%s' WHERE chat_id = %i""" % (dumps(self.settings,
                                                                                  ensure_ascii=False),

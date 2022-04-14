@@ -12,13 +12,13 @@ class API:
         self.headers = CaseInsensitiveDict()
         self.headers["Authorization"] = f"Bearer {self.token}"
 
-    def get_players(self, *args):
+    def get_player(self, *args):
         for player in args:
             self.url += f"userIds={player}&"
 
         response = requests.get(self.url[:-1], headers=self.headers)
 
-        print(f"{str(HTTPStatus(response.status_code).description)} @ {' '.join(str(x) for x in args)}")
+        print(f"[API] {str(HTTPStatus(response.status_code).description)} @ {' '.join(str(x) for x in args)}")
 
         if response.status_code != 200:
             return False

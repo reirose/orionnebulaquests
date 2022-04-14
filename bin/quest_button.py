@@ -1,5 +1,6 @@
 from bin.var import current, emojis, boss_list, api_players
 from bin.buttons_generators import main_buttons, boss_buttons
+from bin.service import check_compability
 
 from telegram import InlineKeyboardMarkup
 from telegram.error import BadRequest
@@ -15,7 +16,8 @@ def edit_text(quest, callback_query):
 
     for player in quest.players:
         p = quest.players[player][2]
-        text += f"🏅{p.lvl} {p.classEmoji}{p.nickName} " \
+        text += f"{emojis['compability'][check_compability(p, quest)] if quest.qn != 9 else ''}" \
+                f"🏅{p.lvl} {p.classEmoji}{p.nickName}" \
                 f"{emojis['status'][quest.players[player][0]]}\n"
 
     try:

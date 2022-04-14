@@ -7,13 +7,14 @@ from libs.chat import Chat
 from libs.quest import Quest
 from libs.player import Player
 from bin.button import button
-from bin.service import uptime, get_vars
+from bin.service import uptime, get_vars, help_message
 from bin.message_filters import is_dev_filter
 
 
 def main():
     dp.add_handler(CommandHandler('boss', Quest.create))
     dp.add_handler(CommandHandler('close', Quest.close))
+    dp.add_handler(CommandHandler('help', help_message))
     dp.add_handler(CommandHandler('settings', Chat.settings))
     dp.add_handler(CommandHandler('uptime', uptime, filters=is_dev_filter))
     dp.add_handler(CommandHandler('get_mem', Player.get_api_mem, filters=is_dev_filter))
