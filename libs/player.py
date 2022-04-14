@@ -16,7 +16,7 @@ class Player:
     @staticmethod
     def get(player: int):
 
-        raw = api.get_players(player)
+        raw = api.get_player(player)
 
         if not raw:
             return False
