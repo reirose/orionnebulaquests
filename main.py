@@ -20,10 +20,6 @@ def main():
     dp.add_handler(CommandHandler('get_mem', Player.get_api_mem, filters=is_dev_filter))
     dp.add_handler(CommandHandler('get_vars', get_vars, filters=is_dev_filter))
 
-    # dp.add_handler(MessageHandler(add_player_filter, Quest.add_player))
-    # dp.add_handler(MessageHandler(remove_player_filter, Quest.remove_player))
-    # dp.add_handler(MessageHandler(player_is_ready_filter, Quest.player_is_ready))
-
     dp.add_handler(CallbackQueryHandler(button))
 
     dp.add_handler(MessageHandler(Filters.text, Chat.reg))

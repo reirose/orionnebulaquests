@@ -1,6 +1,7 @@
 from config.sql import cur, query
 from bin.var import chats
 from bin.buttons_generators import generate_buttons
+from libs.logger import log
 
 from json import dumps
 from telegram import InlineKeyboardMarkup, Update
@@ -24,6 +25,7 @@ class Chat:
 
         for chat in result:
             chats.update({chat[0]: chat[1]})
+            log(f"Updated chat *[{chat[0]}]* @ *chats*")
 
         return
 
@@ -46,11 +48,13 @@ class Chat:
         query("""UPDATE chats SET setiings = '%s' WHERE chat_id = %i""" % (dumps(self.settings,
                                                                                  ensure_ascii=False),
                                                                            self.chat_id))
+        Chat.update_list()
         return
 
     @staticmethod
     def reg(update: Update, context: CallbackContext):
         context.bot.get_me()
+        Chat.update_list()
         if update.message.chat_id in chats:
             return
 
