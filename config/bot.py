@@ -3,7 +3,7 @@ from telegram.ext import Updater
 import logging
 
 debug = 0
-TOKEN = "5240399182:AAFXRenIB9Sv9EisZBXlGIJEkbV9VxgajJc"
+TOKEN = "5240399182:AAE5DtqbXbn4_7RGVjHfi_5Y8xvbfKPCVqM"
 DEBUG_TOKEN = "1050588160:AAHLgjqZKBf2lrm20Z2mz69HgyEiel1U45E"
 
 console = logging.StreamHandler()
