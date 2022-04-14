@@ -108,7 +108,7 @@ def ping(update):
 
     while players:
         text = "<b>Начинаем квест!</b>\n"
-        for i in range(0, 4):
+        for _ in range(0, 4):
             try:
                 text += f"@{quest.players[players[0]][1].username}\n"
             except IndexError:
